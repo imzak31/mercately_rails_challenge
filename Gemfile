@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 ruby "3.2.2"
 
+gem 'active_model_serializers'
 gem "bootsnap", require: false
 gem "devise"
 gem 'dotenv-rails', groups: [:development, :test]
