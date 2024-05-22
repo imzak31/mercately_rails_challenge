@@ -6,6 +6,7 @@ gem 'active_model_serializers'
 gem "bootsnap", require: false
 gem "devise"
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'foreman', github: 'ddollar/foreman'
 gem "importmap-rails"
 gem "jbuilder"
 gem "pg", "~> 1.1"
@@ -23,6 +24,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
+  gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 6.x'
 end
 
@@ -35,3 +37,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "tailwindcss-rails", "~> 2.6"
