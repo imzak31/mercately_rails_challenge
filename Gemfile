@@ -4,6 +4,7 @@ ruby "3.2.2"
 
 gem "bootsnap", require: false
 gem "devise"
+gem 'dotenv-rails', groups: [:development, :test]
 gem "importmap-rails"
 gem "jbuilder"
 gem "pg", "~> 1.1"
@@ -21,7 +22,6 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
-  gem 'dotenv'
   gem 'rspec-rails', '~> 6.x'
 end
 
