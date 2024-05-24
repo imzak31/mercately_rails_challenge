@@ -11,13 +11,18 @@
 #
 class Order < ApplicationRecord
   acts_as_paranoid
+  include Orders::OrderStateMachine
 
   belongs_to :user
   has_many :order_items, dependent: :destroy
 
-  include Orders::OrderStateMachine
+  before_save :calculate_total_price
+
+  def calculate_total_price
+    self.total_price = order_items.to_a.sum(&:total_price)
+  end
 
   def total_price
-    order_items.to_a.sum(&:total_price)
+    read_attribute(:total_price) || calculate_total_price
   end
 end

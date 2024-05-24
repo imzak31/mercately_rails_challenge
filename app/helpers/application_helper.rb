@@ -6,4 +6,10 @@ module ApplicationHelper
     else 'bg-gray-100 border border-gray-400 text-gray-700 dark:bg-gray-900 dark:border-gray-800 dark:text-gray-300'
     end
   end
+
+  def cart_count
+    return 0 unless user_signed_in?
+
+    current_user.orders.find_by(state: 'cart').try(:order_items).try(:count) || 0
+  end
 end

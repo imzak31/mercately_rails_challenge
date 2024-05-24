@@ -45,7 +45,7 @@
       </thead>
       <tbody>
       <% @products.each do |product| %>
-        <tr class="border-b border-gray-200 dark:border-gray-700">
+        <tr class="border-b border-gray-200 dark:border-gray-700" data-product-id="<%= product.id %>">
           <td class="px-4 py-2 text-gray-900 dark:text-gray-100"><%= product.name %></td>
           <td class="px-4 py-2 text-gray-900 dark:text-gray-100 unit-price"><%= product.price %></td>
           <td class="px-4 py-2 text-gray-900 dark:text-gray-100"><%= product.created_at.strftime('%Y-%m-%d') %></td>
@@ -55,7 +55,7 @@
             <button class="increment bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded-r">+</button>
           </td>
           <td class="px-4 py-2 text-gray-900 dark:text-gray-100">
-            <button data-product_id="<%= product.id %>" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded add-to-cart">+</button>
+            <button data-product-id="<%= product.id %>" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded add-to-cart">+</button>
           </td>
         </tr>
       <% end %>
@@ -87,7 +87,7 @@
     document.querySelectorAll('.add-to-cart').forEach(button => {
       button.addEventListener('click', function(event) {
         event.preventDefault();
-        let productId = this.dataset.product_id;
+        let productId = this.dataset.productId;
         let quantity = document.getElementById(`quantity_${productId}`).value;
         let unitPrice = this.closest('tr').querySelector('.unit-price').textContent;
 
@@ -100,33 +100,12 @@
           body: JSON.stringify({ order_item: { product_id: productId, quantity: quantity, unit_price: unitPrice } })
         }).then(response => response.json())
           .then(data => {
+            console.log('Success:', data);  // Added logging for success
             alert('Product added to cart.');
             document.getElementById('cart-count').textContent = data.cart_count;
-          });
-      });
-    });
-
-    document.querySelectorAll('.remove-from-cart').forEach(button => {
-      button.addEventListener('click', function(event) {
-        event.preventDefault();
-        let itemId = this.dataset.item_id;
-
-        fetch(`/order_items/${itemId}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-          }
-        }).then(response => response.json())
-          .then(data => {
-            if (data.message) {
-              alert(data.message);
-              document.getElementById('cart-count').textContent = data.cart_count;
-              this.closest('tr').remove();
-            } else {
-              alert(data.error);
-            }
-          });
+          }).catch(error => {
+          console.error('Error:', error);  // Added logging for errors
+        });
       });
     });
   });

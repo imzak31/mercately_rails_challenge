@@ -1,4 +1,3 @@
-<!-- app/views/layouts/_menu.html.erb -->
 <nav class="bg-indigo-600 dark:bg-indigo-700 p-4 flex justify-between items-center">
   <div class="text-white text-lg font-semibold">
     <%= link_to 'Mercately Rails Challenge', authenticated_root_path, class: 'text-white hover:text-gray-200' %>
@@ -6,7 +5,7 @@
   <div class="flex items-center space-x-4">
     <button id="dark-mode-toggle" class="text-white focus:outline-none">
       <svg id="sun-icon" class="w-6 h-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.364-8.364h1M4.636 12H3m15.364 4.364l-.707-.707M5.05 5.05l-.707-.707m13.414 0l-.707.707M5.05 18.95l-.707.707M12 5a7 7 0 110 14 7 7 0 010-14z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a1 1 0 00-1 1v2a1 1 0 001 1h1a1 1 0 000-2h-.71a8 8 0 017.42 4.1 1 1 0 101.46-1.33A10 10 0 0012 2zM4.22 6.03a1 1 0 00-.95 1.12A8 8 0 007.79 15h.4a1 1 0 100-2h-.42a6 6 0 01-4.95-4.88 1 1 0 00-1.12-.95zM12 22a10 10 0 01-9.31-5.63 1 1 0 101.76-.88A8 8 0 0014 7h-.29a1 1 0 000 2H14a1 1 0 001-1V4a1 1 0 00-1-1zm9.95 1.12a1 1 0 00-1.12-.95A8 8 0 0016 19h-.4a1 1 0 000 2h.42a6 6 0 014.95-4.88 1 1 0 001.12-.95zM12 4a8 8 0 017.95 7.17 1 1 0 001.12 1.12A10 10 0 1012 4z" />
       </svg>
       <svg id="moon-icon" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 13.657a8 8 0 01-11.314 0 8 8 0 0111.314 0z" />
@@ -16,7 +15,7 @@
       <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18l-1.5 9H4.5L3 3zm0 0h18m-9 9v9m0 0H9m3 0h3" />
       </svg>
-      <span id="cart-count" class="absolute top-0 right-0 bg-red-500 rounded-full h-6 w-6 flex items-center justify-center text-white"><%= current_user.orders.find_by(state: 'cart').try(:order_items).try(:count) || 0 %></span>
+      <span id="cart-count" class="absolute top-0 right-0 bg-red-500 rounded-full h-6 w-6 flex items-center justify-center text-white"><%= cart_count %></span>
     <% end %>
     <% if user_signed_in? %>
       <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-white' %>
