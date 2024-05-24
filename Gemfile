@@ -2,6 +2,8 @@ source "https://rubygems.org"
 
 ruby "3.2.2"
 
+gem 'aasm'
+gem 'acts_as_paranoid'
 gem 'active_model_serializers'
 gem "bootsnap", require: false
 gem "devise"
@@ -9,6 +11,8 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'foreman', github: 'ddollar/foreman'
 gem "importmap-rails"
 gem "jbuilder"
+gem 'prawn'
+gem 'prawn-table'
 gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
 gem "rails", "~> 7.1.3", ">= 7.1.3.3"

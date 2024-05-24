@@ -1,0 +1,2 @@
+alert('Product added to cart.');
+document.getElementById('cart-count').textContent = '<%= @order.order_items.sum(:quantity) %>';

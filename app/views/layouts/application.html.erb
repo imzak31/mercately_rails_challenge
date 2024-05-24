@@ -1,3 +1,4 @@
+<!-- app/views/layouts/application.html.erb -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,12 +11,40 @@
   <%= javascript_importmap_tags %>
 </head>
 
-<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
-<div class="w-full max-w-md mx-auto px-4">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+<%= render 'layouts/menu' %>
+
+<div class="flex-grow w-full max-w-4xl mx-auto px-4 py-6">
   <!-- Flash messages -->
   <%= render 'layouts/flash_messages' %>
-
   <%= yield %>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const sunIcon = document.getElementById('sun-icon');
+    const moonIcon = document.getElementById('moon-icon');
+
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme == 'dark') {
+      document.documentElement.classList.add('dark');
+      sunIcon.classList.remove('hidden');
+      moonIcon.classList.add('hidden');
+    } else {
+      document.documentElement.classList.remove('dark');
+      sunIcon.classList.add('hidden');
+      moonIcon.classList.remove('hidden');
+    }
+
+    darkModeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const isDarkMode = document.documentElement.classList.contains('dark');
+      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+      sunIcon.classList.toggle('hidden');
+      moonIcon.classList.toggle('hidden');
+    });
+  });
+</script>
 </body>
 </html>

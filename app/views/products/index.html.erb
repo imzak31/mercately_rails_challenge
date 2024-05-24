@@ -1,0 +1,133 @@
+<div class="container mx-auto py-6">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Products</h1>
+    <%= link_to 'Add New Product', new_product_path, class: 'bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded' %>
+  </div>
+
+  <div class="mb-4">
+    <%= form_with url: products_path, method: :get, local: true, class: "flex space-x-4" do %>
+      <div>
+        <%= label_tag :name, 'Name', class: 'block text-sm font-medium text-gray-700 dark:text-gray-300' %>
+        <%= text_field_tag :name, params[:name], class: 'mt-1 block w-full pl-3 pr-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+      </div>
+
+      <div>
+        <%= label_tag :min_price, 'Min Price', class: 'block text-sm font-medium text-gray-700 dark:text-gray-300' %>
+        <%= text_field_tag :min_price, params[:min_price], class: 'mt-1 block w-full pl-3 pr-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+      </div>
+
+      <div>
+        <%= label_tag :max_price, 'Max Price', class: 'block text-sm font-medium text-gray-700 dark:text-gray-300' %>
+        <%= text_field_tag :max_price, params[:max_price], class: 'mt-1 block w-full pl-3 pr-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+      </div>
+
+      <div>
+        <%= label_tag :created_at, 'Creation Date', class: 'block text-sm font-medium text-gray-700 dark:text-gray-300' %>
+        <%= date_field_tag :created_at, params[:created_at], class: 'mt-1 block w-full pl-3 pr-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+      </div>
+
+      <div>
+        <%= submit_tag 'Filter', class: 'mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white dark:bg-gray-800">
+      <thead class="bg-gray-100 dark:bg-gray-700">
+      <tr>
+        <th class="py-2 px-4 text-left text-gray-900 dark:text-gray-100">Name</th>
+        <th class="py-2 px-4 text-left text-gray-900 dark:text-gray-100">Price</th>
+        <th class="py-2 px-4 text-left text-gray-900 dark:text-gray-100">Created At</th>
+        <th class="py-2 px-4 text-left text-gray-900 dark:text-gray-100">Quantity</th>
+        <th class="py-2 px-4 text-left text-gray-900 dark:text-gray-100">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @products.each do |product| %>
+        <tr class="border-b border-gray-200 dark:border-gray-700">
+          <td class="px-4 py-2 text-gray-900 dark:text-gray-100"><%= product.name %></td>
+          <td class="px-4 py-2 text-gray-900 dark:text-gray-100 unit-price"><%= product.price %></td>
+          <td class="px-4 py-2 text-gray-900 dark:text-gray-100"><%= product.created_at.strftime('%Y-%m-%d') %></td>
+          <td class="px-4 py-2 text-gray-900 dark:text-gray-100 flex items-center space-x-2">
+            <button class="decrement bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded-l">-</button>
+            <input type="number" id="quantity_<%= product.id %>" name="quantity" value="1" min="1" class="w-16 text-center border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-none">
+            <button class="increment bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded-r">+</button>
+          </td>
+          <td class="px-4 py-2 text-gray-900 dark:text-gray-100">
+            <button data-product_id="<%= product.id %>" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded add-to-cart">+</button>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.increment').forEach(button => {
+      button.addEventListener('click', function() {
+        let input = this.previousElementSibling;
+        let currentValue = parseInt(input.value, 10);
+        input.value = currentValue + 1;
+      });
+    });
+
+    document.querySelectorAll('.decrement').forEach(button => {
+      button.addEventListener('click', function() {
+        let input = this.nextElementSibling;
+        let currentValue = parseInt(input.value, 10);
+        if (currentValue > 1) {
+          input.value = currentValue - 1;
+        }
+      });
+    });
+
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', function(event) {
+        event.preventDefault();
+        let productId = this.dataset.product_id;
+        let quantity = document.getElementById(`quantity_${productId}`).value;
+        let unitPrice = this.closest('tr').querySelector('.unit-price').textContent;
+
+        fetch('/order_items', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+          },
+          body: JSON.stringify({ order_item: { product_id: productId, quantity: quantity, unit_price: unitPrice } })
+        }).then(response => response.json())
+          .then(data => {
+            alert('Product added to cart.');
+            document.getElementById('cart-count').textContent = data.cart_count;
+          });
+      });
+    });
+
+    document.querySelectorAll('.remove-from-cart').forEach(button => {
+      button.addEventListener('click', function(event) {
+        event.preventDefault();
+        let itemId = this.dataset.item_id;
+
+        fetch(`/order_items/${itemId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+          }
+        }).then(response => response.json())
+          .then(data => {
+            if (data.message) {
+              alert(data.message);
+              document.getElementById('cart-count').textContent = data.cart_count;
+              this.closest('tr').remove();
+            } else {
+              alert(data.error);
+            }
+          });
+      });
+    });
+  });
+</script>

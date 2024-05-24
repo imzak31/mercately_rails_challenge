@@ -1,13 +1,9 @@
-# == Schema Information
-#
-# Table name: products
-#
-#  id         :bigint           not null, primary key
-#  name       :string
-#  price      :decimal(, )
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-class ProductSerializer < ActiveModel::Serializer
-  attributes :id
+class OrderItemSerializer < ActiveModel::Serializer
+  attributes :id, :quantity, :unit_price, :total_price
+
+  belongs_to :product
+
+  def total_price
+    object.total_price
+  end
 end
