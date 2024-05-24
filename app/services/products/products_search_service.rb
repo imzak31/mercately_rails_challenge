@@ -14,11 +14,11 @@ module Products
       end
 
       if @params[:min_price].present?
-        products = products.where('price >= ?', @params[:min_price])
+        products = products.where(price: @params[:min_price]..)
       end
 
       if @params[:max_price].present?
-        products = products.where('price <= ?', @params[:max_price])
+        products = products.where(price: ..@params[:max_price])
       end
 
       if @params[:created_at].present?

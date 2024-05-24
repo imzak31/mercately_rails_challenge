@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe "orders/destroy.html.tailwindcss", type: :view do
+RSpec.describe('orders/destroy.html.tailwindcss') do
   pending "add some examples to (or delete) #{__FILE__}"
 end

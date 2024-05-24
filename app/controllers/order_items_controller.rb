@@ -6,7 +6,7 @@ class OrderItemsController < ApplicationController
     @order_item = @order.order_items.new(order_item_params)
     if @order_item.save
       cart_count = @order.order_items.sum(:quantity)
-      render json: { order_item: OrderItemSerializer.new(@order_item), cart_count: cart_count }, status: :created
+      render json: { order_item: OrderItemSerializer.new(@order_item), cart_count: }, status: :created
     else
       render json: @order_item.errors, status: :unprocessable_entity
     end
@@ -15,9 +15,9 @@ class OrderItemsController < ApplicationController
   def destroy
     @order_item = @order.order_items.find(params[:id])
     if @order_item.destroy
-      redirect_to orders_path, notice: 'Item was successfully removed.'
+      redirect_to(orders_path, notice: 'Item was successfully removed.')
     else
-      redirect_to orders_path, alert: 'Failed to remove item.'
+      redirect_to(orders_path, alert: 'Failed to remove item.')
     end
   end
 

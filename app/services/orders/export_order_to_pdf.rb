@@ -8,7 +8,7 @@ module Orders
 
     def generate
       Prawn::Document.new do |pdf|
-        pdf.text("Order Details", size: 30, style: :bold)
+        pdf.text('Order Details', size: 30, style: :bold)
         pdf.move_down(20)
 
         pdf.text("Order ID: #{@order.id}", size: 15)
@@ -24,7 +24,7 @@ module Orders
         end
 
         pdf.move_down(20)
-        pdf.text("Thank you for your order!", size: 15, style: :bold)
+        pdf.text('Thank you for your order!', size: 15, style: :bold)
       end.render
     end
 

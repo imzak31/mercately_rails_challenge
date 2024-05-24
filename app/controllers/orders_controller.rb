@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
 
   def pdf
     pdf = Orders::ExportOrderToPdf.new(@order).generate
-    send_data pdf, filename: "order_#{@order.id}.pdf", type: 'application/pdf', disposition: 'inline'
+    send_data(pdf, filename: "order_#{@order.id}.pdf", type: 'application/pdf', disposition: 'inline')
   end
 
   def create

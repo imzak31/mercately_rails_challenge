@@ -1,45 +1,45 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-ruby "3.2.2"
+ruby '3.2.2'
 
 gem 'aasm'
-gem 'acts_as_paranoid'
 gem 'active_model_serializers'
-gem "bootsnap", require: false
-gem "devise"
+gem 'acts_as_paranoid'
+gem 'bootsnap', require: false
+gem 'devise'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'foreman', github: 'ddollar/foreman'
-gem "importmap-rails"
-gem "jbuilder"
+gem 'importmap-rails'
+gem 'jbuilder'
+gem 'pg', '~> 1.1'
 gem 'prawn'
 gem 'prawn-table'
-gem "pg", "~> 1.1"
-gem "puma", ">= 5.0"
-gem "rails", "~> 7.1.3", ">= 7.1.3.3"
-gem "redis", ">= 4.0.1"
+gem 'puma', '>= 5.0'
+gem 'rails', '~> 7.1.3', '>= 7.1.3.3'
+gem 'redis', '>= 4.0.1'
 gem 'rubocop-factory_bot', require: false
 gem 'rubocop-performance', require: false
 gem 'rubocop-rails', require: false
 gem 'rubocop-rspec', require: false
-gem "sprockets-rails"
-gem "stimulus-rails"
-gem "turbo-rails"
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem 'sprockets-rails'
+gem 'stimulus-rails'
+gem 'turbo-rails'
+gem 'tzinfo-data', platforms: [:windows, :jruby]
 
 group :development, :test do
-  gem "debug", platforms: %i[ mri windows ]
+  gem 'debug', platforms: [:mri, :windows]
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 6.x'
 end
 
 group :development do
   gem 'annotate'
-  gem "web-console"
+  gem 'web-console'
 end
 
 group :test do
-  gem "capybara"
-  gem "selenium-webdriver"
+  gem 'capybara'
+  gem 'selenium-webdriver'
 end
 
-gem "tailwindcss-rails", "~> 2.6"
+gem 'tailwindcss-rails', '~> 2.6'
