@@ -1,0 +1,32 @@
+<!-- app/views/orders/show.html.erb -->
+<div class="container mx-auto py-6">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="text-2xl font-bold">Order Details</h1>
+    <%= link_to 'Export PDF', pdf_order_path(@order), class: 'bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded' %>
+  </div>
+
+  <table class="min-w-full bg-white dark:bg-gray-800">
+    <thead class="bg-gray-100 dark:bg-gray-700">
+    <tr>
+      <th class="py-2 px-4 text-left text-gray-900 dark:text-gray-100">Name</th>
+      <th class="py-2 px-4 text-left text-gray-900 dark:text-gray-100">Price</th>
+      <th class="py-2 px-4 text-left text-gray-900 dark:text-gray-100">Quantity</th>
+      <th class="py-2 px-4 text-left text-gray-900 dark:text-gray-100">Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @order.order_items.each do |item| %>
+      <tr class="border-b border-gray-200 dark:border-gray-700">
+        <td class="px-4 py-2 text-gray-900 dark:text-gray-100"><%= item.product.name %></td>
+        <td class="px-4 py-2 text-gray-900 dark:text-gray-100"><%= item.unit_price %></td>
+        <td class="px-4 py-2 text-gray-900 dark:text-gray-100"><%= item.quantity %></td>
+        <td class="px-4 py-2 text-gray-900 dark:text-gray-100"><%= item.total_price %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="3" class="px-4 py-2 text-right text-gray-900 dark:text-gray-100 font-bold">Total:</td>
+      <td class="px-4 py-2 text-gray-900 dark:text-gray-100 font-bold"><%= @order.total_price %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
